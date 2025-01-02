@@ -1,15 +1,7 @@
 name: Rust
 on:
   push:
-    paths-ignore:
-      - "docs/**"
-      - "book/**"
-      - "**.md"
   pull_request:
-    paths-ignore:
-      - "docs/**"
-      - "book/**"
-      - "**.md"
 
 env:
   RUSTFLAGS: "-D warnings"
