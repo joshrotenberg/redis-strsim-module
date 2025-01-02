@@ -1,0 +1,25 @@
+[package]
+name = "redis-strsim"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+integration-tests = []
+
+[dependencies]
+redis-module = { version = "^2.0.7", default-features = false, features = [
+    "min-redis-compatibility-version-7-2",
+] }
+redis-module-macros = "^2.0.7"
+strsim = "0.11.1"
+
+[dev-dependencies]
+testcontainers = { version = "0.23.1", features = ["blocking"] }
+redis = "0.27.6"
+anyhow = "1.0.56"
+
+[build-dependencies]
+anyhow = "1.0.56"
