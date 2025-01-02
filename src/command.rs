@@ -103,9 +103,9 @@ pub(crate) fn normalized_damerau_levenshtein(
     let first = args.next_arg()?.try_as_str()?;
     let second = args.next_arg()?.try_as_str()?;
 
-    Ok(RedisValue::Float(
-        strsim::normalized_damerau_levenshtein(first, second)
-    ))
+    Ok(RedisValue::Float(strsim::normalized_damerau_levenshtein(
+        first, second,
+    )))
 }
 
 /// STRSIM.NORMALIZED_HAMMING <first> <second>
@@ -123,18 +123,15 @@ pub(crate) fn normalized_levenshtein(
     let first = args.next_arg()?.try_as_str()?;
     let second = args.next_arg()?.try_as_str()?;
 
-    Ok(RedisValue::Float(
-        strsim::normalized_levenshtein(first, second)
-    ))
+    Ok(RedisValue::Float(strsim::normalized_levenshtein(
+        first, second,
+    )))
 }
 
 /// STRSIM.OSA_DISTANCE <first> <second>
 ///
 /// Computes the Optimal String Alignment distance between two strings.
-pub(crate) fn osa_distance(
-    _ctx: &Context,
-    args: Vec<RedisString>,
-) -> RedisResult<RedisValue> {
+pub(crate) fn osa_distance(_ctx: &Context, args: Vec<RedisString>) -> RedisResult<RedisValue> {
     if args.len() < 2 {
         return Err(RedisError::WrongArity);
     }
@@ -151,10 +148,7 @@ pub(crate) fn osa_distance(
 /// STRSIM.SORENSEN_DICE <first> <second>
 ///
 /// Computes the Sørensen-Dice coefficient between two strings.
-pub(crate) fn sorensen_dice(
-    _ctx: &Context,
-    args: Vec<RedisString>,
-) -> RedisResult<RedisValue> {
+pub(crate) fn sorensen_dice(_ctx: &Context, args: Vec<RedisString>) -> RedisResult<RedisValue> {
     if args.len() < 2 {
         return Err(RedisError::WrongArity);
     }
@@ -163,7 +157,5 @@ pub(crate) fn sorensen_dice(
     let first = args.next_arg()?.try_as_str()?;
     let second = args.next_arg()?.try_as_str()?;
 
-    Ok(RedisValue::Float(
-        strsim::sorensen_dice(first, second)
-    ))
+    Ok(RedisValue::Float(strsim::sorensen_dice(first, second)))
 }
