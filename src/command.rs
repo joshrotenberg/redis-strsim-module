@@ -1,7 +1,7 @@
 use redis_module::{Context, NextArg, RedisError, RedisResult, RedisString, RedisValue};
 use strsim::StrSimError;
 
-/// STRSIM.DAMERAU_LEVENSHTEIN <first> <second>
+/// STRSIM.DAMERAU_LEVENSHTEIN <a> <b>
 ///
 /// Computes the Damerau-Levenshtein distance between two strings.
 pub(crate) fn damerau_levenshtein(
@@ -13,15 +13,15 @@ pub(crate) fn damerau_levenshtein(
     }
 
     let mut args = args.into_iter().skip(1);
-    let first = args.next_arg()?.try_as_str()?;
-    let second = args.next_arg()?.try_as_str()?;
+    let a = args.next_arg()?.try_as_str()?;
+    let b = args.next_arg()?.try_as_str()?;
 
     Ok(RedisValue::Integer(
-        strsim::damerau_levenshtein(first, second) as i64,
+        strsim::damerau_levenshtein(a, b) as i64,
     ))
 }
 
-/// STRSIM.HAMMING <first> <second>
+/// STRSIM.HAMMING <a> <b>
 ///
 /// Computes the Hamming distance between two strings.
 pub(crate) fn hamming(_ctx: &Context, args: Vec<RedisString>) -> RedisResult<RedisValue> {
@@ -30,10 +30,10 @@ pub(crate) fn hamming(_ctx: &Context, args: Vec<RedisString>) -> RedisResult<Red
     }
 
     let mut args = args.into_iter().skip(1);
-    let first = args.next_arg()?.try_as_str()?;
-    let second = args.next_arg()?.try_as_str()?;
+    let a = args.next_arg()?.try_as_str()?;
+    let b = args.next_arg()?.try_as_str()?;
 
-    match strsim::hamming(first, second) {
+    match strsim::hamming(a, b) {
         Ok(distance) => Ok(RedisValue::Integer(distance as i64)),
         Err(StrSimError::DifferentLengthArgs) => {
             Err(RedisError::Str("ERR Arguments must be of the same length"))
@@ -41,7 +41,7 @@ pub(crate) fn hamming(_ctx: &Context, args: Vec<RedisString>) -> RedisResult<Red
     }
 }
 
-/// STRSIM.JARO <first> <second>
+/// STRSIM.JARO <a> <b>
 ///
 /// Computes the Jaro distance between two strings.
 pub(crate) fn jaro(_ctx: &Context, args: Vec<RedisString>) -> RedisResult<RedisValue> {
@@ -50,13 +50,13 @@ pub(crate) fn jaro(_ctx: &Context, args: Vec<RedisString>) -> RedisResult<RedisV
     }
 
     let mut args = args.into_iter().skip(1);
-    let first = args.next_arg()?.try_as_str()?;
-    let second = args.next_arg()?.try_as_str()?;
+    let a = args.next_arg()?.try_as_str()?;
+    let b = args.next_arg()?.try_as_str()?;
 
-    Ok(RedisValue::Float(strsim::jaro(first, second)))
+    Ok(RedisValue::Float(strsim::jaro(a, b)))
 }
 
-/// STRSIM.JARO_WINKLER <first> <second>
+/// STRSIM.JARO_WINKLER <a> <b>
 ///
 /// Computes the Jaro-Winkler distance between two strings.
 pub(crate) fn jaro_winkler(_ctx: &Context, args: Vec<RedisString>) -> RedisResult<RedisValue> {
@@ -65,13 +65,13 @@ pub(crate) fn jaro_winkler(_ctx: &Context, args: Vec<RedisString>) -> RedisResul
     }
 
     let mut args = args.into_iter().skip(1);
-    let first = args.next_arg()?.try_as_str()?;
-    let second = args.next_arg()?.try_as_str()?;
+    let a = args.next_arg()?.try_as_str()?;
+    let b = args.next_arg()?.try_as_str()?;
 
-    Ok(RedisValue::Float(strsim::jaro_winkler(first, second)))
+    Ok(RedisValue::Float(strsim::jaro_winkler(a, b)))
 }
 
-/// STRSIM.LEVENSHTEIN <first> <second>
+/// STRSIM.LEVENSHTEIN <a> <b>
 ///
 /// Computes the Levenshtein distance between two strings.
 pub(crate) fn levenshtein(_ctx: &Context, args: Vec<RedisString>) -> RedisResult<RedisValue> {
@@ -80,15 +80,15 @@ pub(crate) fn levenshtein(_ctx: &Context, args: Vec<RedisString>) -> RedisResult
     }
 
     let mut args = args.into_iter().skip(1);
-    let first = args.next_arg()?.try_as_str()?;
-    let second = args.next_arg()?.try_as_str()?;
+    let a = args.next_arg()?.try_as_str()?;
+    let b = args.next_arg()?.try_as_str()?;
 
     Ok(RedisValue::Integer(
-        strsim::levenshtein(first, second) as i64
+        strsim::levenshtein(a, b) as i64
     ))
 }
 
-/// STRSIM.NORMALIZED_DAMERAU_LEVENSHTEIN <first> <second>
+/// STRSIM.NORMALIZED_DAMERAU_LEVENSHTEIN <a> <b>
 ///
 /// Computes the normalized Damerau-Levenshtein distance between two strings.
 pub(crate) fn normalized_damerau_levenshtein(
@@ -100,15 +100,15 @@ pub(crate) fn normalized_damerau_levenshtein(
     }
 
     let mut args = args.into_iter().skip(1);
-    let first = args.next_arg()?.try_as_str()?;
-    let second = args.next_arg()?.try_as_str()?;
+    let a = args.next_arg()?.try_as_str()?;
+    let b = args.next_arg()?.try_as_str()?;
 
     Ok(RedisValue::Float(strsim::normalized_damerau_levenshtein(
-        first, second,
+        a, b,
     )))
 }
 
-/// STRSIM.NORMALIZED_HAMMING <first> <second>
+/// STRSIM.NORMALIZED_HAMMING <a> <b>
 ///
 /// Computes the normalized Hamming distance between two strings.
 pub(crate) fn normalized_levenshtein(
@@ -120,15 +120,15 @@ pub(crate) fn normalized_levenshtein(
     }
 
     let mut args = args.into_iter().skip(1);
-    let first = args.next_arg()?.try_as_str()?;
-    let second = args.next_arg()?.try_as_str()?;
+    let a = args.next_arg()?.try_as_str()?;
+    let b = args.next_arg()?.try_as_str()?;
 
     Ok(RedisValue::Float(strsim::normalized_levenshtein(
-        first, second,
+        a, b,
     )))
 }
 
-/// STRSIM.OSA_DISTANCE <first> <second>
+/// STRSIM.OSA_DISTANCE <a> <b>
 ///
 /// Computes the Optimal String Alignment distance between two strings.
 pub(crate) fn osa_distance(_ctx: &Context, args: Vec<RedisString>) -> RedisResult<RedisValue> {
@@ -137,15 +137,15 @@ pub(crate) fn osa_distance(_ctx: &Context, args: Vec<RedisString>) -> RedisResul
     }
 
     let mut args = args.into_iter().skip(1);
-    let first = args.next_arg()?.try_as_str()?;
-    let second = args.next_arg()?.try_as_str()?;
+    let a = args.next_arg()?.try_as_str()?;
+    let b = args.next_arg()?.try_as_str()?;
 
     Ok(RedisValue::Integer(
-        strsim::osa_distance(first, second) as i64
+        strsim::osa_distance(a, b) as i64
     ))
 }
 
-/// STRSIM.SORENSEN_DICE <first> <second>
+/// STRSIM.SORENSEN_DICE <a> <b>
 ///
 /// Computes the Sørensen-Dice coefficient between two strings.
 pub(crate) fn sorensen_dice(_ctx: &Context, args: Vec<RedisString>) -> RedisResult<RedisValue> {
@@ -154,8 +154,8 @@ pub(crate) fn sorensen_dice(_ctx: &Context, args: Vec<RedisString>) -> RedisResu
     }
 
     let mut args = args.into_iter().skip(1);
-    let first = args.next_arg()?.try_as_str()?;
-    let second = args.next_arg()?.try_as_str()?;
+    let a = args.next_arg()?.try_as_str()?;
+    let b = args.next_arg()?.try_as_str()?;
 
-    Ok(RedisValue::Float(strsim::sorensen_dice(first, second)))
+    Ok(RedisValue::Float(strsim::sorensen_dice(a, b)))
 }
