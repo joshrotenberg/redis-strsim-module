@@ -12,7 +12,7 @@ fn main() -> Result<()> {
     let cwd = env::var("CARGO_MANIFEST_DIR")?;
     let dockerfile = format!("{cwd}/Dockerfile");
 
-    println!("cargo:warning={}", "Building from '{dockerfile}'");
+    println!("cargo:warning=Building from {}", dockerfile);
     let output = Command::new("docker")
         .arg("build")
         .arg("--file")
