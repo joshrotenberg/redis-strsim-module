@@ -16,9 +16,7 @@ pub(crate) fn damerau_levenshtein(
     let a = args.next_arg()?.try_as_str()?;
     let b = args.next_arg()?.try_as_str()?;
 
-    Ok(RedisValue::Integer(
-        strsim::damerau_levenshtein(a, b) as i64,
-    ))
+    Ok(RedisValue::Integer(strsim::damerau_levenshtein(a, b) as i64))
 }
 
 /// STRSIM.HAMMING <a> <b>
@@ -83,9 +81,7 @@ pub(crate) fn levenshtein(_ctx: &Context, args: Vec<RedisString>) -> RedisResult
     let a = args.next_arg()?.try_as_str()?;
     let b = args.next_arg()?.try_as_str()?;
 
-    Ok(RedisValue::Integer(
-        strsim::levenshtein(a, b) as i64
-    ))
+    Ok(RedisValue::Integer(strsim::levenshtein(a, b) as i64))
 }
 
 /// STRSIM.NORMALIZED_DAMERAU_LEVENSHTEIN <a> <b>
@@ -123,9 +119,7 @@ pub(crate) fn normalized_levenshtein(
     let a = args.next_arg()?.try_as_str()?;
     let b = args.next_arg()?.try_as_str()?;
 
-    Ok(RedisValue::Float(strsim::normalized_levenshtein(
-        a, b,
-    )))
+    Ok(RedisValue::Float(strsim::normalized_levenshtein(a, b)))
 }
 
 /// STRSIM.OSA_DISTANCE <a> <b>
@@ -140,9 +134,7 @@ pub(crate) fn osa_distance(_ctx: &Context, args: Vec<RedisString>) -> RedisResul
     let a = args.next_arg()?.try_as_str()?;
     let b = args.next_arg()?.try_as_str()?;
 
-    Ok(RedisValue::Integer(
-        strsim::osa_distance(a, b) as i64
-    ))
+    Ok(RedisValue::Integer(strsim::osa_distance(a, b) as i64))
 }
 
 /// STRSIM.SORENSEN_DICE <a> <b>
